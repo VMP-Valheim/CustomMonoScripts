@@ -57,7 +57,7 @@ First you need to add your "repository.dll" created earlier to your mod project 
 
 Once you have done that you will need to use a little code to stream this file on Awake() in order for the prefabs to be able to have their scripts find the supporting functions once they load into ObjectDB/Znet
 
-		    ```Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("NamespaceGoesHere.repository.dll");
+	     Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("NamespaceGoesHere.repository.dll");
 
             byte[] buffer = new byte[stream.Length];
 
@@ -69,5 +69,5 @@ Once you have done that you will need to use a little code to stream this file o
             System.Type testBehaviour = assembly.GetType("ME_CustomLight");
          
             go.AddComponent(testBehaviour);
-            LoadAssets();```
+            LoadAssets();
 
