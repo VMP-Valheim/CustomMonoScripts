@@ -12,7 +12,7 @@ If you have purchased assets from the asset store more-than-likely you have gott
  3. Once in your unity project take note of the "Scripts" that come with your assets see attached photo for reference 
 
 
-			 ![Scripts Location in unity example](test.jpg)
+![Scripts Location in unity example](scripts.PNG)
 			 
 			 
 4. After you have the location of your scripts you will need to either 
@@ -23,7 +23,7 @@ If you have purchased assets from the asset store more-than-likely you have gott
 5a. Now that you have all the scripts in a central location / folder. You need to create an Assembly Definition file for this folder in order to indicate to your prefabs that these scripts do exist in  an assembly. 
 
 
- ![Assembly Def in unity example](test.jpg)
+ ![Assembly Def in unity example](Assemdef.PNG)
  
  
 6a. At this point it is up to you to determine how to use your mono-script portions within unity. 
@@ -63,7 +63,7 @@ You will need to do just a few items in the project for your mod.
 First you need to add your "repository.dll" created earlier to your mod project as a file to be embedded
 
 
-![Scripts Location in unity example](test.jpg)
+![Scripts Location in unity example](Embed.PNG)
 
 
 Once you have done that you will need to use a little code to stream this file on Awake() in order for the prefabs to be able to have their scripts find the supporting functions once they load into ObjectDB/Znet
