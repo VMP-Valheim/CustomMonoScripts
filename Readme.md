@@ -44,3 +44,30 @@ Unity ->> Visual Studio: Move CS files from Unity into VS
 Visual Studio ->> Visual Studio: Compile Custom Monoscripts -> DLL
 Visual Studio -->> Mod Project: Move into Mod Project for reference by prefabs
 ```
+
+
+## Usage in your mod
+
+When you want to deploy this "repository.dll of custom mono-scripts" in your mod so you can have your cool prefabs do something with this mod. 
+
+You will need to do just a few items in the project for your mod. 
+
+First you need to add your "repository.dll" created earlier to your mod project as a file to be embedded
+![Scripts Location in unity example](test.jpg)
+
+Once you have done that you will need to use a little code to stream this file on Awake() in order for the prefabs to be able to have their scripts find the supporting functions once they load into ObjectDB/Znet
+
+		    ```Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("NamespaceGoesHere.repository.dll");
+
+            byte[] buffer = new byte[stream.Length];
+
+            stream.Read(buffer, 0, buffer.Length);
+
+            Assembly assembly = Assembly.Load(buffer);
+			//unsure if these following lines are required but unity forums suggest the monoscript needs attached to GameObject in order for the scripts to be available. In my mind this happens when your prefab loads as the script in your prefab will call out to the "repository.dll"
+            GameObject go = new GameObject();
+            System.Type testBehaviour = assembly.GetType("ME_CustomLight");
+         
+            go.AddComponent(testBehaviour);
+            LoadAssets();```
+
