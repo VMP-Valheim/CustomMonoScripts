@@ -87,3 +87,4 @@ Once you have done that you will need to use a little code to stream this file o
 		// do the rest of your awake afte this 
 	}
 
+![Example of scripts showing in game](POC.PNG)
