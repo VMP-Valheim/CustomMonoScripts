@@ -1,3 +1,6 @@
+# Purpose
+This POC is trying to answer the question. How do I get custom `MonoBehaviour`s out of Unity and into Valheim? 
+
 
 
 ## How to use custom monoscripts that have come with your assets. 
