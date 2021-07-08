@@ -3,6 +3,8 @@ This POC is trying to answer the question. How do I get custom `MonoBehaviour`s 
 
 
 
+
+
 ## How to use custom monoscripts that have come with your assets. 
 
 If you have purchased assets from the asset store more-than-likely you have gotten a small handful of custom .cs scripts that control certain aspects of your asset. When you try to use those prefabs with Valheim you are usually met with a sea of yellow text explaining how it cannot locate script portions. In the example today we will be working with particle systems respectively therefore the focus of this readme will be around that style of deployment. 
@@ -11,48 +13,33 @@ If you have purchased assets from the asset store more-than-likely you have gott
 ## First Steps
 
  1. Download your custom asset in Unity for my example I will be using one of my paid assets [Kripto MeshFX](https://assetstore.unity.com/packages/vfx/particles/spells/mesh-effects-67803)
- 2. Use the built in asset manager to import your assets into your Unity project 
- 3. Once in your unity project take note of the "Scripts" that come with your assets see attached photo for reference 
-
-
-![Scripts Location in unity example](scripts.PNG)
-			 
-			 
-4. After you have the location of your scripts you will need to either 
-		4a. Put them all into the same "Scripts Folder"
-		4b. Create respective assembly definitions for each folder and tie back retrospectively to the parent folders
-	For ease of explanation we will be going with method 4a 
-
-5a. Now that you have all the scripts in a central location / folder. You need to create an Assembly Definition file for this folder in order to indicate to your prefabs that these scripts do exist in  an assembly. 
-
-
- ![Assembly Def in unity example](Assemdef.PNG)
- 
- 
-6a. At this point it is up to you to determine how to use your mono-script portions within unity. 
-
-
+ 2.  Next head to your Project Settings in Unity we need to make sure we have a few things in the "Player" setup properly 
+ 3. The next thing you need to do is setup your prefab to use your custom monoscript component and bundle it.
+ 4. After you have your object created with this custom monoscript component attached. You need to compile the monoscripts into a usable format by your mod / valheim . You need to click the Assets dropdown tab. Then select
+Open C# project. This will open up a visual studio project related to your Unity project. 
 
 ## Visual Studio
 
-At this point you will want to move into visual studio, Assuming you have a solution started for your mod already with a respective project for this mod. Make a second project in your solution. Choose a .Net lib and use the same references you would when building a mod (Bepinex/unstripped libs/publicized libs etc).
+Visual studio should have opened automatically based on the last step. There COULD be some work to do here depending on how your scripts are written but there is a high chance you won't need to do much. 
+Just press CTRL+B to build the project that has opened when finishing step 4 in the prior sequence. 
+![Visual Studio project view](VSProjectview.png)
 
-If you have done this you should have a visual studio project ready to load with files
+This will build all the *.dll files for your unity project. You will require one of these files in order to use your custom monoscripts with your mod. 
 
-You need to go to the folder your Unity project is saved in. Find the Assets folder and find your scripts folder location. 
+Now you have bult the Assembly-Csharp.dll that you require to make these custom monoscripts work with your mod. 
 
-Import EVERY SINGLE one of your .cs files into your Visual Studio project and build this project. You should get a .dll 
+you can locate this file in UnityProjectFolder\Library\Scriptable Objects\Assembly-CSharp.dll
 
-This .dll will be used as your "in game repository of custom effects" 
+this shows the dll location in my project that is called valheim
+
+![Locationofdllfile](dlllocation.png)
+
 
 ## Logic Flow
 
-
-And this will produce a flow chart:
 ```mermaid
 sequenceDiagram
-Unity ->> Visual Studio: Move CS files from Unity into VS
-Visual Studio ->> Visual Studio: Compile Custom Monoscripts -> DLL
+Unity ->> Visual Studio: Compile Project into DLL's
 Visual Studio -->> Mod Project: Move into Mod Project for reference by prefabs
 ```
 
@@ -64,27 +51,19 @@ When you want to deploy this "repository.dll of custom mono-scripts" in your mod
 You will need to do just a few items in the project for your mod. 
 
 First you need to add your "repository.dll" created earlier to your mod project as a file to be embedded
-
-
-![Scripts Location in unity example](Embed.PNG)
-
+![Scripts Location in unity example](test.jpg)
 
 Once you have done that you will need to use a little code to stream this file on Awake() in order for the prefabs to be able to have their scripts find the supporting functions once they load into ObjectDB/Znet
-	
-		Awake(){
-	     Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("NamespaceGoesHere.repository.dll");
+
+		    Awake(){
+		    Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DefaultProjectNamespaceGoesHere.Assembly-CSharp.dll");
 
             byte[] buffer = new byte[stream.Length];
 
             stream.Read(buffer, 0, buffer.Length);
 
             Assembly assembly = Assembly.Load(buffer);
-			//unsure if these following lines are required but unity forums suggest the monoscript needs attached to GameObject in order for the scripts to be available. In my mind this happens when your prefab loads as the script in your prefab will call out to the "repository.dll"
-            GameObject go = new GameObject();
-            System.Type testBehaviour = assembly.GetType("ME_CustomLight");
-         
-            go.AddComponent(testBehaviour);
-		// do the rest of your awake afte this 
-	}
+			}
 
-![Example of scripts showing in game](POC.PNG)
+
+
