@@ -14,9 +14,11 @@ If you have purchased assets from the asset store more-than-likely you have gott
 
  1. Download your custom asset in Unity for my example I will be using one of my paid assets [Kripto MeshFX](https://assetstore.unity.com/packages/vfx/particles/spells/mesh-effects-67803)
  2.  Next head to your Project Settings in Unity we need to make sure we have a few things in the "Player" setup properly 
- 3. The next thing you need to do is setup your prefab to use your custom monoscript component and bundle it.
- 4. After you have your object created with this custom monoscript component attached. You need to compile the monoscripts into a usable format by your mod / valheim . You need to click the Assets dropdown tab. Then select
+ 3.  ![Unity Project Settings](https://github.com/VMP-Valheim/CustomMonoScripts/blob/main/How%20To%20Package%20MonoRepo.dll/UnityProjSettings.png)
+ 4. The next thing you need to do is setup your prefab to use your custom monoscript component and bundle it.
+ 5. After you have your object created with this custom monoscript component attached. You need to compile the monoscripts into a usable format by your mod / valheim . You need to click the Assets dropdown tab. Then select
 Open C# project. This will open up a visual studio project related to your Unity project. 
+![Open C#](https://docs.microsoft.com/en-us/visualstudio/gamedev/unity/media/vs/vstu-open-csharp-project.png)
 
 ## Visual Studio
 
