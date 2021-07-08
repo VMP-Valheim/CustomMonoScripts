@@ -68,4 +68,4 @@ Once you have done that you will need to use a little code to stream this file o
 
 Witness your scripts working in game :D 
 
-![Proof of working concept](POC.png)
+![Proof of working concept](POC.PNG)
