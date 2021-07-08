@@ -50,8 +50,8 @@ When you want to deploy this "repository.dll of custom mono-scripts" in your mod
 
 You will need to do just a few items in the project for your mod. 
 
-First you need to add your "repository.dll" created earlier to your mod project as a file to be embedded
-![Scripts Location in unity example](test.jpg)
+First you need to add your "Assembly-CSharp.dll" created earlier to your mod project as a file to be embedded
+![Scripts Location in unity example](embeddedasset.png)
 
 Once you have done that you will need to use a little code to stream this file on Awake() in order for the prefabs to be able to have their scripts find the supporting functions once they load into ObjectDB/Znet
 
